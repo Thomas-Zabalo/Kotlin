@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 
@@ -85,10 +87,9 @@ fun MonImage(painterResource: Int, contentDescription: String) {
             .border(3.dp, Color.Gray, CircleShape)
     )
 }
-
 @Composable
-fun MonBouton() {
-    Button(onClick = {}) {
+fun MonBouton(navController: NavController) {
+    Button(onClick = { navController.navigate(FilmPage())}) {
         Text(
             text = "Démarrer",
         )
@@ -104,7 +105,7 @@ fun Main() {
 }
 
 @Composable
-fun Screen(classes: WindowSizeClass) {
+fun Profil(classes: WindowSizeClass, navController: NavHostController) {
     val heightClass = classes.windowHeightSizeClass
     val widthClass = classes.windowWidthSizeClass
 
@@ -121,7 +122,7 @@ fun Screen(classes: WindowSizeClass) {
                 painterResource = R.drawable.baseline_email_24,
                 contentDescription = "Image mail"
             )
-            MonBouton()
+            MonBouton(navController)
         }
 
     } else {
@@ -139,7 +140,7 @@ fun Screen(classes: WindowSizeClass) {
                     painterResource = R.drawable.baseline_email_24,
                     contentDescription = "Image mail"
                 )
-                MonBouton()
+                MonBouton(navController)
             }
 
         }
