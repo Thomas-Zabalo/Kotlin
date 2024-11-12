@@ -135,7 +135,7 @@ class MainActivity : ComponentActivity() {
                         composable<FilmPage> {
                             Films(
                                 viewModel = viewModel,
-                                api_key = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
                                 navController
                             )
                         }
@@ -143,25 +143,30 @@ class MainActivity : ComponentActivity() {
                             val movieDetail: FilmDetail = backStackEntry.toRoute()
                             MovieDetail(
                                 viewModel = viewModel,
-                                api_key = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                id = movieDetail.id
-                            )
+                                id = movieDetail.id,
+                                apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+
+                                )
                         }
                         composable<SeriePage> {
                             Series(
                                 viewModel = viewModel,
-                                api_key = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
                                 navController
                             )
                         }
                         composable<SerieDetail> { backStackEntry ->
-                            val TvDetail: SerieDetail = backStackEntry.toRoute()
-                            TvDetail(TvDetail.id)
+                            val tvDetail: SerieDetail = backStackEntry.toRoute()
+                            TvDetail(
+                                viewModel = viewModel,
+                                id = tvDetail.id,
+                                apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                )
                         }
                         composable<ActeurPage> {
                             Acteur(
                                 viewModel = viewModel,
-                                api_key = "e4009b8963dbfe389c28cb3b4d0c309e"
+                                apikey = "e4009b8963dbfe389c28cb3b4d0c309e"
                             )
                         }
 

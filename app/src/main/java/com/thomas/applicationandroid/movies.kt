@@ -23,11 +23,11 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 
 @Composable
-fun Films(viewModel: MainViewModel, api_key: String, navController: NavController) {
+fun Films(viewModel: MainViewModel, apikey: String, navController: NavController) {
     val movies by viewModel.movies.collectAsState()
 
     if (movies.isEmpty()) {
-        viewModel.getFilmsInitiaux(api_key)
+        viewModel.getFilmsInitiaux(apikey)
     }
 
 

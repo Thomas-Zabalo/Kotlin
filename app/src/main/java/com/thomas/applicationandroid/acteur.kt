@@ -22,11 +22,11 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
-fun Acteur(viewModel: MainViewModel, api_key: String) {
+fun Acteur(viewModel: MainViewModel, apikey: String) {
     val actors by viewModel.actors.collectAsState()
 
     if (actors.isEmpty()) {
-        viewModel.getActeurInitiaux(api_key)
+        viewModel.getActeurInitiaux(apikey)
     }
 
 

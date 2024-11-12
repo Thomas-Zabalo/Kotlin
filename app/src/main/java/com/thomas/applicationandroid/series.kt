@@ -23,11 +23,11 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 
 @Composable
-fun Series(viewModel: MainViewModel, api_key: String, navController: NavController) {
+fun Series(viewModel: MainViewModel, apikey: String, navController: NavController) {
     val series by viewModel.series.collectAsState()
 
     if (series.isEmpty()) {
-        viewModel.getTvInitiaux(api_key)
+        viewModel.getTvInitiaux(apikey)
     }
 
 
