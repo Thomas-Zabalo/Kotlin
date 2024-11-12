@@ -30,6 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.thomas.applicationandroid.ui.theme.ApplicationAndroidTheme
 import kotlinx.serialization.Serializable
 
@@ -40,7 +41,13 @@ class HomePage
 class FilmPage
 
 @Serializable
+class FilmDetail(val id: String)
+
+@Serializable
 class SeriePage
+
+@Serializable
+class SerieDetail(val id: Int)
 
 @Serializable
 class ActeurPage
@@ -126,13 +133,39 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable<HomePage> { Profil(windowSizeClass, navController) }
                         composable<FilmPage> {
-                            Film(
+                            Films(
+                                viewModel = viewModel,
+                                api_key = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                navController
+                            )
+                        }
+                        composable<FilmDetail> { backStackEntry ->
+                            val movieDetail: FilmDetail = backStackEntry.toRoute()
+                            MovieDetail(
+                                viewModel = viewModel,
+                                api_key = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                id = movieDetail.id
+                            )
+                        }
+                        composable<SeriePage> {
+                            Series(
+                                viewModel = viewModel,
+                                api_key = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                navController
+                            )
+                        }
+                        composable<SerieDetail> { backStackEntry ->
+                            val TvDetail: SerieDetail = backStackEntry.toRoute()
+                            TvDetail(TvDetail.id)
+                        }
+                        composable<ActeurPage> {
+                            Acteur(
                                 viewModel = viewModel,
                                 api_key = "e4009b8963dbfe389c28cb3b4d0c309e"
                             )
                         }
-                        composable<SeriePage> { Serie() }
-                        composable<ActeurPage> { Acteur() }
+
+
                     }
 
 

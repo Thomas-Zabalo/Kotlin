@@ -4,6 +4,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun Acteur() {
-    Text(text = "Bonjour Acteurs")
+fun TvDetail(id : Int){
+    Text(
+        text = "Voici l'id que je recupere $id",
+    )
 }
