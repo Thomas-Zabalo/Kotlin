@@ -35,7 +35,7 @@ fun Series(viewModel: MainViewModel, apikey: String, navController: NavControlle
         columns = GridCells.Fixed(3),
         modifier = Modifier.padding(12.dp) // Padding général pour la grille
     ) {
-        items(series.size) { index ->
+        items(series.take(9).size) { index ->
             val serie = series[index]
             Column(
                 modifier = Modifier.padding(8.dp), // Padding autour de chaque film

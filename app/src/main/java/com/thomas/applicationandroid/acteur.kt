@@ -34,7 +34,7 @@ fun Acteur(viewModel: MainViewModel, apikey: String) {
         columns = GridCells.Fixed(3),
         modifier = Modifier.padding(12.dp) // Padding général pour la grille
     ) {
-        items(actors.size) { index ->
+        items(actors.take(12).size) { index ->
             val actor = actors[index]
             Column(
                 modifier = Modifier.padding(8.dp), // Padding autour de chaque film

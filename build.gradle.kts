@@ -2,4 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    // pour hilt
+    id("com.google.dagger.hilt.android") version "2.52" apply false
+    id("androidx.room") version "2.6.1" apply false
 }

@@ -36,6 +36,13 @@ interface Api {
         @Query("language") language: String = "fr"
     ): TmdbTvResult
 
+    @GET("search/tv")
+    suspend fun searchseries(
+        @Query("api_key") apikey: String,
+        @Query("query") searchtext: String,
+        @Query("language") language: String = "fr"
+    ): TmdbTvResult
+
     @GET("tv/{id}?append_to_response=credits")
     suspend fun serieDetails(
         @Path("id") id: Int,
@@ -50,6 +57,12 @@ interface Api {
         @Query("language") language: String = "fr"
     ): TmdbActorResult
 
+    @GET("search/person")
+    suspend fun searchacteurs(
+        @Query("api_key") apikey: String,
+        @Query("query") searchtext: String,
+        @Query("language") language: String = "fr"
+    ): TmdbActorResult
 
 }
 

@@ -1,6 +1,6 @@
 package com.thomas.applicationandroid
 
-data class TmdbMovieDetail(
+class TmdbMovieDetail(
     val adult: Boolean? = false,
     val backdrop_path: String? = "",
     val belongs_to_collection: Any? = Any(),
@@ -30,23 +30,23 @@ data class TmdbMovieDetail(
     val vote_count: Int? = 0
 )
 
-data class Credits(
+class Credits(
     val cast: List<Cast?>? = listOf(),
     val crew: List<Crew?>? = listOf()
 )
 
-data class Genre(
+class Genre(
     val id: Int? = 0,
     val name: String? = ""
 )
 
-data class SpokenLanguage(
+class SpokenLanguage(
     val english_name: String? = "",
     val iso_639_1: String? = "",
     val name: String? = ""
 )
 
-data class Cast(
+class Cast(
     val adult: Boolean? = false,
     val cast_id: Int? = 0,
     val character: String? = "",
@@ -61,7 +61,7 @@ data class Cast(
     val profile_path: String? = ""
 )
 
-data class Crew(
+class Crew(
     val adult: Boolean? = false,
     val credit_id: String? = "",
     val department: String? = "",

@@ -1,6 +1,6 @@
 package com.thomas.applicationandroid
 
-data class TmdbSerieDetail(
+class TmdbSerieDetail(
     val adult: Boolean? = false,
     val backdrop_path: String? = "",
     val created_by: List<CreatedBy?>? = listOf(),
@@ -36,7 +36,7 @@ data class TmdbSerieDetail(
     val vote_count: Int? = 0
 )
 
-data class CreatedBy(
+class CreatedBy(
     val credit_id: String? = "",
     val gender: Int? = 0,
     val id: Int? = 0,
@@ -45,17 +45,17 @@ data class CreatedBy(
     val profile_path: Any? = Any()
 )
 
-data class SerieCredits(
+class SerieCredits(
     val cast: List<SerieCast?>? = listOf(),
     val crew: List<Any?>? = listOf()
 )
 
-data class SerieGenre(
+class SerieGenre(
     val id: Int? = 0,
     val name: String? = ""
 )
 
-data class LastEpisodeToAir(
+class LastEpisodeToAir(
     val air_date: String? = "",
     val episode_number: Int? = 0,
     val episode_type: String? = "",
@@ -71,14 +71,14 @@ data class LastEpisodeToAir(
     val vote_count: Int? = 0
 )
 
-data class Network(
+class Network(
     val id: Int? = 0,
     val logo_path: String? = "",
     val name: String? = "",
     val origin_country: String? = ""
 )
 
-data class NextEpisodeToAir(
+class NextEpisodeToAir(
     val air_date: String? = "",
     val episode_number: Int? = 0,
     val episode_type: String? = "",
@@ -94,19 +94,19 @@ data class NextEpisodeToAir(
     val vote_count: Int? = 0
 )
 
-data class ProductionCompany(
+class ProductionCompany(
     val id: Int? = 0,
     val logo_path: String? = "",
     val name: String? = "",
     val origin_country: String? = ""
 )
 
-data class ProductionCountry(
+class ProductionCountry(
     val iso_3166_1: String? = "",
     val name: String? = ""
 )
 
-data class Season(
+class Season(
     val air_date: String? = "",
     val episode_count: Int? = 0,
     val id: Int? = 0,
@@ -117,13 +117,13 @@ data class Season(
     val vote_average: Double? = 0.0
 )
 
-data class SerieSpokenLanguage(
+class SerieSpokenLanguage(
     val english_name: String? = "",
     val iso_639_1: String? = "",
     val name: String? = ""
 )
 
-data class SerieCast(
+class SerieCast(
     val adult: Boolean? = false,
     val character: String? = "",
     val credit_id: String? = "",

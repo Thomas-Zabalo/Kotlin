@@ -35,7 +35,7 @@ fun Films(viewModel: MainViewModel, apikey: String, navController: NavController
         columns = GridCells.Fixed(3),
         modifier = Modifier.padding(12.dp) // Padding général pour la grille
     ) {
-        items(movies.size) { index ->
+        items(movies.take(9).size) { index ->
             val movie = movies[index]
             Column(
                 modifier = Modifier.padding(8.dp), // Padding autour de chaque film

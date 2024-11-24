@@ -15,6 +15,7 @@ class MainViewModel() : ViewModel() {
     val movieDetails = MutableStateFlow<TmdbMovieDetail?>(null)
     val serieDetails = MutableStateFlow<TmdbSerieDetail?>(null)
 
+    //Requete sur les films
     fun getFilmsInitiaux(apikey: String) {
         viewModelScope.launch {
             val result = api.lastmovies(apikey)
@@ -36,6 +37,7 @@ class MainViewModel() : ViewModel() {
         }
     }
 
+    //Requete sur les series
     fun getTvInitiaux(apikey: String) {
         viewModelScope.launch {
             val result = api.lastseries(apikey)
@@ -50,9 +52,24 @@ class MainViewModel() : ViewModel() {
         }
     }
 
+    fun getTvBySearch(apikey: String, query: String) {
+        viewModelScope.launch {
+            val result = api.searchseries(apikey, query)
+            series.value = result.results
+        }
+    }
+
+    //Requete sur les acteurs
     fun getActeurInitiaux(apikey: String) {
         viewModelScope.launch {
             val result = api.lastactors(apikey)
+            actors.value = result.results
+        }
+    }
+
+    fun getActeurBySearch(apikey: String, query: String) {
+        viewModelScope.launch {
+            val result = api.searchacteurs(apikey, query)
             actors.value = result.results
         }
     }
