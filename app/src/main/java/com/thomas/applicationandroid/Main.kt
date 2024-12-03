@@ -26,7 +26,22 @@ class Salon(
 ) : Piece() {
 }
 
+
+class Etudiant(val name: String, val promo: String, val matieres: List<String>)
+
+val etudiants = listOf(
+    Etudiant("Paul", "2025", listOf("mobile", "web", "BDD")),
+    Etudiant("Yazid", "2024", listOf("mobile", "Android", "Réseau")),
+    Etudiant("Caroline", "2025", listOf("SE", "Anglais")),
+)
+
 fun main() {
-    Cuisine.()
+    Cuisine()
     Salon()
+
+    val promo2024 = etudiants.filter { it.promo == "2024" }
+        .forEach { (println("Affichage des étudiants étant de la promotion 2024 " + it.name)) }
+
+    val matSup2 = etudiants.filter { it.matieres.size > 2 }
+        .forEach { (println("Affichage des étudiants ayant choisi plus de 2 matière" + it.name)) }
 }
