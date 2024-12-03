@@ -42,14 +42,13 @@ fun Series(
     val widthClass = classes.windowWidthSizeClass
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Adaptive(140.dp),
         modifier = Modifier.padding(12.dp) // Padding général pour la grille
     ) {
         items(series.take(9).size) { index ->
             val serie = series[index]
             Column(
                 modifier = Modifier.padding(8.dp), // Padding autour de chaque film
-
             ) {
                 // Image avec hauteur ajustée et largeur maximisée
                 if (widthClass == WindowWidthSizeClass.COMPACT) {
