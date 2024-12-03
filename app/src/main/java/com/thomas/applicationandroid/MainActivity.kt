@@ -280,7 +280,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable<PlaylistPage> {
-                            Playlist()
+                            Playlist(viewModel = viewModel)
                         }
 
 

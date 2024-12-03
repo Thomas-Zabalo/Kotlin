@@ -1,6 +1,6 @@
 package com.thomas.applicationandroid
 
-data class Playlist(
+class Playlist(
     val checksum: String,
     val collaborative: Boolean,
     val cover: String,
@@ -23,19 +23,19 @@ data class Playlist(
     val type: String
 )
 
-data class Creator(
+class Creator(
     val id: Int,
     val name: String,
     val tracklist: String,
     val type: String
 )
 
-data class Tracks(
+class Tracks(
     val checksum: String,
     val `data`: List<Data>
 )
 
-data class Data(
+class Data(
     val album: Album,
     val artist: Artist,
     val duration: Int,
@@ -56,7 +56,7 @@ data class Data(
     val type: String
 )
 
-data class Album(
+class Album(
     val cover: String,
     val id: Int,
     val md5_image: String,
@@ -66,11 +66,10 @@ data class Album(
     val upc: String
 )
 
-data class Artist(
+class Artist(
     val id: Int,
     val link: String,
     val name: String,
     val tracklist: String,
     val type: String
 )
-}

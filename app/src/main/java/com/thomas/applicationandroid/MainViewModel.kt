@@ -5,6 +5,8 @@ import TmdbMovie
 import TmdbTv
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplicationtest.playlistjson
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -16,6 +18,10 @@ class MainViewModel() : ViewModel() {
     val actors = MutableStateFlow<List<TmdbActor>>(listOf())
     val movieDetails = MutableStateFlow<TmdbMovieDetail?>(null)
     val serieDetails = MutableStateFlow<TmdbSerieDetail?>(null)
+
+    // Etat observable
+    val playlist = MutableStateFlow<List<Playlist>>(listOf())
+
 
     //Requete sur les films
     fun getFilmsInitiaux(apikey: String) {
@@ -75,7 +81,19 @@ class MainViewModel() : ViewModel() {
             actors.value = result.results
         }
     }
+
+
+    //Fetch de la playlist
+    fun fetchPlaylist(): Playlist {
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(Playlist::class.java).fromJson(playlistjson)!!
+    }
+
+    fun getfetchPlaylist(){
+        fetchPlaylist()
+    }
 }
+
 
 val retrofit: Retrofit = Retrofit.Builder()
     .baseUrl("https://api.themoviedb.org/3/")
