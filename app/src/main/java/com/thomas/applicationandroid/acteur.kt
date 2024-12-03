@@ -35,7 +35,7 @@ fun Acteur(viewModel: MainViewModel, apikey: String, classes: WindowSizeClass) {
 
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Adaptive(140.dp),
         modifier = Modifier.padding(12.dp) // Padding général pour la grille
     ) {
         items(actors.take(12).size) { index ->

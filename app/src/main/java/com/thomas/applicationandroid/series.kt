@@ -42,7 +42,7 @@ fun Series(
     val widthClass = classes.windowWidthSizeClass
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Adaptive(140.dp),
         modifier = Modifier.padding(12.dp) // Padding général pour la grille
     ) {
         items(series.take(9).size) { index ->
