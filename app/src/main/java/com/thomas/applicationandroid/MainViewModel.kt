@@ -20,7 +20,7 @@ class MainViewModel() : ViewModel() {
     val serieDetails = MutableStateFlow<TmdbSerieDetail?>(null)
 
     // Etat observable
-    val playlist = MutableStateFlow<List<Playlist>>(listOf())
+    val playlist = MutableStateFlow<Playlist>
 
 
     //Requete sur les films
@@ -90,9 +90,10 @@ class MainViewModel() : ViewModel() {
     }
 
     fun getfetchPlaylist(){
-        fetchPlaylist()
+           fetchPlaylist()
+        }
     }
-}
+
 
 
 val retrofit: Retrofit = Retrofit.Builder()
