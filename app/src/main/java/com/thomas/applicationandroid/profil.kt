@@ -89,7 +89,7 @@ fun MonImage(painterResource: Int, contentDescription: String) {
 }
 @Composable
 fun MonBouton(navController: NavController) {
-    Button(onClick = { navController.navigate(FilmPage())}) {
+    Button(onClick = { navController.navigate(PlaylistPage())}) {
         Text(
             text = "Démarrer",
         )

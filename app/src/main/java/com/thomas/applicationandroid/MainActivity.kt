@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Movie
+import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -58,6 +59,8 @@ class SerieDetail(val id: Int)
 @Serializable
 class ActeurPage
 
+@Serializable
+class PlaylistPage
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -217,6 +220,15 @@ class MainActivity : ComponentActivity() {
                                     label = { Text("Acteurs") },
                                     selected = currentDestination.hasRoute<ActeurPage>(),
                                     onClick = { navController.navigate(ActeurPage()) })
+                                NavigationBarItem(icon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.MusicNote,
+                                        contentDescription = "Playlist"
+                                    )
+                                },
+                                    label = { Text("Music") },
+                                    selected = currentDestination.hasRoute<PlaylistPage>(),
+                                    onClick = { navController.navigate(PlaylistPage()) })
                             }
                         }
                     }) { innerPadding ->
@@ -266,6 +278,9 @@ class MainActivity : ComponentActivity() {
                                 apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
                                 windowSizeClass
                             )
+                        }
+                        composable<PlaylistPage> {
+                            Playlist()
                         }
 
 
