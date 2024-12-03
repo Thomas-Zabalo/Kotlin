@@ -38,7 +38,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.thomas.applicationandroid.ui.theme.ApplicationAndroidTheme
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -88,7 +87,8 @@ class MainActivity : ComponentActivity() {
                                         overflow = TextOverflow.Ellipsis
                                     )
                                 } else {
-                                    TextField(value = search,
+                                    TextField(
+                                        value = search,
                                         onValueChange = {
                                             search = it
                                             when {
@@ -230,7 +230,8 @@ class MainActivity : ComponentActivity() {
                             Films(
                                 viewModel = viewModel,
                                 apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                navController
+                                navController,
+                                windowSizeClass
                             )
                         }
                         composable<FilmDetail> { backStackEntry ->
@@ -246,7 +247,8 @@ class MainActivity : ComponentActivity() {
                             Series(
                                 viewModel = viewModel,
                                 apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                navController
+                                navController,
+                                windowSizeClass
                             )
                         }
                         composable<SerieDetail> { backStackEntry ->
@@ -260,7 +262,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<ActeurPage> {
                             Acteur(
-                                viewModel = viewModel, apikey = "e4009b8963dbfe389c28cb3b4d0c309e"
+                                viewModel = viewModel,
+                                apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                windowSizeClass
                             )
                         }
 

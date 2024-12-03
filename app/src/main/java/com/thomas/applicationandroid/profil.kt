@@ -106,7 +106,6 @@ fun Main() {
 
 @Composable
 fun Profil(classes: WindowSizeClass, navController: NavHostController) {
-    val heightClass = classes.windowHeightSizeClass
     val widthClass = classes.windowWidthSizeClass
 
     if (widthClass == WindowWidthSizeClass.COMPACT) {
