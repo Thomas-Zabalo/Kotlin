@@ -67,9 +67,3 @@ interface Api {
 }
 
 
-val retrofit: Retrofit = Retrofit.Builder()
-    .baseUrl("https://api.themoviedb.org/3/")
-    .addConverterFactory(MoshiConverterFactory.create())
-    .build()
-
-val api: Api = retrofit.create(Api::class.java)

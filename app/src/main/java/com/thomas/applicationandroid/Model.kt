@@ -12,7 +12,7 @@ class TmdbMovie(
     val backdrop_path: String? = "",
     val genre_ids: List<Int> = listOf(),
     val poster_path: String? = "",
-    val isFav: Boolean = false
+    var isFav: Boolean = false
 )
 
 

@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -16,15 +14,14 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Tv
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +38,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.thomas.applicationandroid.ui.theme.ApplicationAndroidTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -61,6 +59,7 @@ class SerieDetail(val id: Int)
 @Serializable
 class ActeurPage
 
+
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("RestrictedApi")
@@ -80,149 +79,147 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     // TopBar : affiché selon la destination actuelle
                     topBar = {
-                        if (currentDestination?.hasRoute<HomePage>() == false &&
-                            currentDestination?.hasRoute<SerieDetail>() == false &&
-                            currentDestination?.hasRoute<FilmDetail>() == false
-                        ) {
-                            CenterAlignedTopAppBar(
-                                title = {
-                                    if (isSearchMode == false) {
-                                        Text(
-                                            "Android TMDB app",
-                                            maxLines = 1,
-                                            overflow = TextOverflow.Ellipsis
-                                        )
-                                    } else {
-                                        TextField(
-                                            value = search,
-                                            onValueChange = {
-                                                search = it
-                                                when {
-                                                    currentDestination?.hasRoute<FilmPage>() == true -> {
-                                                        viewModel.getFilmsBySearch(
-                                                            apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                                            query = search.text
-                                                        )
-                                                    }
-
-                                                    currentDestination?.hasRoute<SeriePage>() == true -> {
-                                                        viewModel.getTvBySearch(
-                                                            apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                                            query = search.text
-                                                        )
-                                                    }
-
-                                                    currentDestination?.hasRoute<ActeurPage>() == true -> {
-                                                        viewModel.getActeurBySearch(
-                                                            apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                                            query = search.text
-                                                        )
-                                                    }
+                        if (currentDestination?.hasRoute<HomePage>() == false && !currentDestination.hasRoute<SerieDetail>() && !currentDestination.hasRoute<FilmDetail>()) {
+                            TopAppBar(title = {
+                                if (!isSearchMode) {
+                                    Text(
+                                        "Android TMDB app",
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                } else {
+                                    TextField(value = search,
+                                        onValueChange = {
+                                            search = it
+                                            when {
+                                                currentDestination.hasRoute<FilmPage>() -> {
+                                                    viewModel.getFilmsBySearch(
+                                                        apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                                        query = search.text
+                                                    )
                                                 }
-                                            },
-                                            placeholder = {
-                                                when {
-                                                    currentDestination?.hasRoute<FilmPage>() == true -> Text("Rechercher un film...")
-                                                    currentDestination?.hasRoute<SeriePage>() == true -> Text("Rechercher une série...")
-                                                    currentDestination?.hasRoute<ActeurPage>() == true -> Text("Rechercher un(e) acteur/rice...")
-                                                    else -> Text("Rechercher...")
+
+                                                currentDestination.hasRoute<SeriePage>() -> {
+                                                    viewModel.getTvBySearch(
+                                                        apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                                        query = search.text
+                                                    )
                                                 }
-                                            },
-                                            singleLine = true,
-                                            modifier = Modifier
-                                                .fillMaxWidth() // Prend toute la largeur disponible
-                                                .padding(end = 60.dp), // Padding à gauche seulement
-                                        )
-                                    }
-                                },
-                                actions = {
-                                    if (!isSearchMode) {
-                                        // Icône de recherche visible en mode "titre"
-                                        Icon(
-                                            imageVector = Icons.Default.Search,
-                                            contentDescription = "Rechercher",
-                                            modifier = Modifier.clickable { isSearchMode = true }
-                                        )
-                                    } else {
-                                        // Icône pour quitter le mode recherche
-                                        Icon(
-                                            imageVector = Icons.Default.Close,
-                                            contentDescription = "Fermer la recherche",
-                                            modifier = Modifier.clickable {
-                                                isSearchMode = false
-                                                search = TextFieldValue("") // Réinitialise la recherche
-                                                when {
-                                                    currentDestination?.hasRoute<FilmPage>() == true -> {
-                                                        // Chargez les films par défaut
-                                                        viewModel.getFilmsBySearch(
-                                                            apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                                            query = "" // Recherche vide pour obtenir tous les films
-                                                        )
-                                                    }
-                                                    currentDestination?.hasRoute<SeriePage>() == true -> {
-                                                        // Chargez les séries par défaut
-                                                        viewModel.getTvBySearch(
-                                                            apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                                            query = "" // Recherche vide pour obtenir toutes les séries
-                                                        )
-                                                    }
-                                                    currentDestination?.hasRoute<ActeurPage>() == true -> {
-                                                        // Chargez les acteurs par défaut
-                                                        viewModel.getActeurBySearch(
-                                                            apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
-                                                            query = "" // Recherche vide pour obtenir tous les acteurs
-                                                        )
-                                                    }
+
+                                                currentDestination.hasRoute<ActeurPage>() -> {
+                                                    viewModel.getActeurBySearch(
+                                                        apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                                        query = search.text
+                                                    )
                                                 }
                                             }
+                                        },
+                                        placeholder = {
+                                            when {
+                                                currentDestination.hasRoute<FilmPage>() -> Text(
+                                                    "Rechercher un film..."
+                                                )
 
-                                        )
-                                    }
-                                    // Ajout de l'icône de cœur
-                                    Icon(
-                                        imageVector = Icons.Filled.Favorite,
-                                        contentDescription = "Favoris",
-                                        modifier = Modifier.padding(end = 16.dp)
+                                                currentDestination.hasRoute<SeriePage>() -> Text(
+                                                    "Rechercher une série..."
+                                                )
+
+                                                currentDestination.hasRoute<ActeurPage>() -> Text(
+                                                    "Rechercher un(e) acteur/rice..."
+                                                )
+
+                                                else -> Text("Rechercher...")
+                                            }
+                                        },
+                                        singleLine = true,
+                                        modifier = Modifier
+                                            .fillMaxWidth() // Prend toute la largeur disponible
+                                            .padding(end = 60.dp) // Padding à gauche seulement
                                     )
                                 }
-                            )
+                            }, actions = {
+                                if (!isSearchMode) {
+                                    // Icône de recherche visible en mode "titre"
+                                    Icon(imageVector = Icons.Default.Search,
+                                        contentDescription = "Rechercher",
+                                        modifier = Modifier.clickable { isSearchMode = true })
+                                } else {
+                                    // Icône pour quitter le mode recherche
+                                    Icon(imageVector = Icons.Default.Close,
+                                        contentDescription = "Fermer la recherche",
+                                        modifier = Modifier.clickable {
+                                            isSearchMode = false
+                                            search = TextFieldValue("") // Réinitialise la recherche
+                                            when {
+                                                currentDestination.hasRoute<FilmPage>() -> {
+                                                    // Chargez les films par défaut
+                                                    viewModel.getFilmsBySearch(
+                                                        apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                                        query = "" // Recherche vide pour obtenir tous les films
+                                                    )
+                                                }
+
+                                                currentDestination.hasRoute<SeriePage>() -> {
+                                                    // Chargez les séries par défaut
+                                                    viewModel.getTvBySearch(
+                                                        apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                                        query = "" // Recherche vide pour obtenir toutes les séries
+                                                    )
+                                                }
+
+                                                currentDestination.hasRoute<ActeurPage>() -> {
+                                                    // Chargez les acteurs par défaut
+                                                    viewModel.getActeurBySearch(
+                                                        apikey = "e4009b8963dbfe389c28cb3b4d0c309e",
+                                                        query = "" // Recherche vide pour obtenir tous les acteurs
+                                                    )
+                                                }
+                                            }
+                                        }
+
+                                    )
+                                }
+                                // Ajout de l'icône de cœur
+                                Icon(
+                                    imageVector = Icons.Filled.Favorite,
+                                    contentDescription = "Favoris",
+                                    modifier = Modifier.padding(end = 16.dp)
+                                )
+                            })
                         }
-                    },
-                    bottomBar = {
+                    }, bottomBar = {
                         if (currentDestination?.hasRoute<HomePage>() == false) {
                             NavigationBar {
-                                NavigationBarItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Filled.Movie,
-                                            contentDescription = "Profile Icon"
-                                        )
-                                    }, label = { Text("Films") },
+                                NavigationBarItem(icon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.Movie,
+                                        contentDescription = "Profile Icon"
+                                    )
+                                },
+                                    label = { Text("Films") },
                                     selected = currentDestination.hasRoute<FilmPage>(),
                                     onClick = { navController.navigate(FilmPage()) })
-                                NavigationBarItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Filled.Tv,
-                                            contentDescription = "Profile Icon"
-                                        )
-                                    }, label = { Text("Séries") },
+                                NavigationBarItem(icon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.Tv,
+                                        contentDescription = "Profile Icon"
+                                    )
+                                },
+                                    label = { Text("Séries") },
                                     selected = currentDestination.hasRoute<SeriePage>(),
                                     onClick = { navController.navigate(SeriePage()) })
-                                NavigationBarItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Filled.AccountCircle,
-                                            contentDescription = "Profile Icon"
-                                        )
-                                    }, label = { Text("Acteurs") },
+                                NavigationBarItem(icon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.AccountCircle,
+                                        contentDescription = "Profile Icon"
+                                    )
+                                },
+                                    label = { Text("Acteurs") },
                                     selected = currentDestination.hasRoute<ActeurPage>(),
                                     onClick = { navController.navigate(ActeurPage()) })
                             }
                         }
-                    }
-                )
-                { innerPadding ->
+                    }) { innerPadding ->
                     NavHost(
                         navController,
                         startDestination = HomePage(),
@@ -263,8 +260,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<ActeurPage> {
                             Acteur(
-                                viewModel = viewModel,
-                                apikey = "e4009b8963dbfe389c28cb3b4d0c309e"
+                                viewModel = viewModel, apikey = "e4009b8963dbfe389c28cb3b4d0c309e"
                             )
                         }
 
